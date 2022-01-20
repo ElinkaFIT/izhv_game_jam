@@ -1,10 +1,11 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    public float speed = 10.0f;
     private Rigidbody2D _body;
     
     // Start is called before the first frame update

@@ -6,12 +6,15 @@ public class Player : MonoBehaviour
 {
 	private float dirX, dirY, speed;
     private Rigidbody2D rbPlayer;
+    private Animator anim;
+    private bool mHeadingRight = true;
     
 	public bool ClimbingAllowed{ get; set; }
 
     // Start is called before the first frame update
     private void Start()
     {
+	    anim = GetComponent<Animator>();
         rbPlayer = GetComponent<Rigidbody2D>();
 		speed = 10.0f;
     }
@@ -21,6 +24,16 @@ public class Player : MonoBehaviour
     {
 		dirX = Input.GetAxisRaw("Horizontal") * speed;
         //rbPlayer.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rbPlayer.velocity.y);
+		
+        // for running animation
+        if (dirX == 0)
+        {
+	        anim.SetBool("IsRunning", false);
+        }
+        else
+        {
+	        anim.SetBool("IsRunning", true);
+        }
 
         //if (Input.GetKey(KeyCode.Space))
         //  rbPlayer.velocity = new Vector2(0, 7);
@@ -48,10 +61,25 @@ public class Player : MonoBehaviour
 		}
 
 		if (Input.GetKey(KeyCode.Space))
-           rbPlayer.velocity = new Vector2(0, 7);
-		
-	
-	}
+		{
+			rbPlayer.velocity = new Vector2(0, 7);
+
+		}
+
+		// right
+		if (dirX > 0 && !mHeadingRight)
+		{
+			transform.localRotation *= Quaternion.Euler(0, 180, 0);
+			mHeadingRight = true;
+		}
+		// left
+		else if (dirX < 0 && mHeadingRight)
+		{
+			transform.localRotation *= Quaternion.Euler(0, 180, 0);
+			mHeadingRight = false;
+		}
+
+    }
 
 
 

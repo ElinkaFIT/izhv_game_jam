@@ -43,6 +43,12 @@ public class Player : MonoBehaviour
 			dirY = Input.GetAxisRaw("Vertical") * speed;
 			//rbPlayer.velocity = new Vector2(Input.GetAxis("Vertical") * speed, rbPlayer.velocity.y);
 		}
+		
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			rbPlayer.velocity = new Vector2(0, 7);
+
+		}
 	
 
     }
@@ -59,25 +65,21 @@ public class Player : MonoBehaviour
 			rbPlayer.isKinematic = false;
 			rbPlayer.velocity = new Vector2(dirX, rbPlayer.velocity.y);
 		}
+		
 
-		if (Input.GetKey(KeyCode.Space))
-		{
-			rbPlayer.velocity = new Vector2(0, 7);
-
-		}
-
-		// right
+		// move right
 		if (dirX > 0 && !mHeadingRight)
 		{
 			transform.localRotation *= Quaternion.Euler(0, 180, 0);
 			mHeadingRight = true;
 		}
-		// left
+		// move left
 		else if (dirX < 0 && mHeadingRight)
 		{
 			transform.localRotation *= Quaternion.Euler(0, 180, 0);
 			mHeadingRight = false;
 		}
+		
 
     }
 

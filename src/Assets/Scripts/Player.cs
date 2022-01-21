@@ -6,6 +6,11 @@ public class Player : MonoBehaviour
 {
 	private float dirX, dirY, speed;
     private Rigidbody2D rbPlayer;
+    
+    private BoxCollider2D bcPlayer;
+    public float groundCheckDistance = 0.01f;
+    public LayerMask groundLayerMask;
+    
     private Animator anim;
     private bool mHeadingRight = true;
     
@@ -16,6 +21,7 @@ public class Player : MonoBehaviour
     {
 	    anim = GetComponent<Animator>();
         rbPlayer = GetComponent<Rigidbody2D>();
+	    bcPlayer = GetComponent<BoxCollider2D>();
 		speed = 10.0f;
     }
 
@@ -23,7 +29,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
 		dirX = Input.GetAxisRaw("Horizontal") * speed;
-        //rbPlayer.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rbPlayer.velocity.y);
 		
         // for running animation
         if (dirX == 0)
@@ -35,23 +40,34 @@ public class Player : MonoBehaviour
 	        anim.SetBool("IsRunning", true);
         }
 
-        //if (Input.GetKey(KeyCode.Space))
-        //  rbPlayer.velocity = new Vector2(0, 7);
-		
 		if (ClimbingAllowed)
 		{
 			dirY = Input.GetAxisRaw("Vertical") * speed;
-			//rbPlayer.velocity = new Vector2(Input.GetAxis("Vertical") * speed, rbPlayer.velocity.y);
 		}
 		
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			rbPlayer.velocity = new Vector2(0, 7);
-
-		}
-	
+		
+		
+		var jumpMovement = Input.GetKeyDown(KeyCode.Space);
+		var onGround = IsOnGround();
+		
+		if (jumpMovement && onGround)
+			rbPlayer.velocity= new Vector2(0, 7);
+		
 
     }
+    
+    
+     bool IsOnGround()
+    {
+	    // Cast our current BoxCollider in the current gravity direction.
+        var hitInfo = Physics2D.BoxCast(
+            bcPlayer.bounds.center, bcPlayer.bounds.size, 
+            0.0f, Physics2D.gravity.normalized, groundCheckDistance, 
+            groundLayerMask);
+
+        return hitInfo.collider != null;
+    }
+    
 
  	private void FixedUpdate()
     {

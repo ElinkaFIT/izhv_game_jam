@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	private float dirX, dirY, speed;
+	private float dirX, dirY;
+	
+	[SerializeField] private float speed = 10.0f;
     private Rigidbody2D rbPlayer;
     
     private BoxCollider2D bcPlayer;
@@ -22,7 +24,6 @@ public class Player : MonoBehaviour
 	    anim = GetComponent<Animator>();
         rbPlayer = GetComponent<Rigidbody2D>();
 	    bcPlayer = GetComponent<BoxCollider2D>();
-		speed = 10.0f;
     }
 
     // Update is called once per frame
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour
 		var onGround = IsOnGround();
 		
 		if (jumpMovement && onGround)
-			rbPlayer.velocity= new Vector2(0, 7);
+			rbPlayer.velocity= new Vector2(0, 9);
 		
 
     }

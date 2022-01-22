@@ -6,11 +6,10 @@ public class Player : MonoBehaviour
 {
 	private float dirX, dirY;
 	
-	[SerializeField] private float speed = 10.0f;
-	[SerializeField] private float velocity = 20.0f;
-	[SerializeField] private float gravity = 6.0f;
+	public float speed = 10.0f;
+	public float velocity = 20.0f;
+	public float gravity = 6.0f;
     private Rigidbody2D rbPlayer;
-    
     private CapsuleCollider2D bcPlayer;
     public float groundCheckDistance = 0.01f;
     public LayerMask groundLayerMask;

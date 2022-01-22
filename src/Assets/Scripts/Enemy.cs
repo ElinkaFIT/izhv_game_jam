@@ -31,9 +31,9 @@ public class Enemy : MonoBehaviour
         
         float distToPlayer = Vector2.Distance(transform.position, player.position);
 
-        bool chasingAllowed = (distToPlayer < agroRange && player.position.y < transform.position.y + 1 &&
+        bool chasingAllowed = (distToPlayer < agroRange && player.position.y < transform.position.y + 2 &&
                                player.position.y > transform.position.y - 1);
-        if (chasingAllowed )
+       if (chasingAllowed )
         {
             ChasePlayerMode();
         }

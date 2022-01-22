@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
 	private float dirX, dirY;
 	
 	[SerializeField] private float speed = 10.0f;
+	[SerializeField] private float velocity = 20.0f;
+	[SerializeField] private float gravity = 6.0f;
     private Rigidbody2D rbPlayer;
     
-    private BoxCollider2D bcPlayer;
+    private CapsuleCollider2D bcPlayer;
     public float groundCheckDistance = 0.01f;
     public LayerMask groundLayerMask;
     
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
     {
 	    anim = GetComponent<Animator>();
         rbPlayer = GetComponent<Rigidbody2D>();
-	    bcPlayer = GetComponent<BoxCollider2D>();
+	    bcPlayer = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
 	        anim.SetBool("IsRunning", true);
         }
 
+        rbPlayer.gravityScale = gravity;
 		if (ClimbingAllowed)
 		{
 			dirY = Input.GetAxisRaw("Vertical") * speed;
@@ -52,7 +55,7 @@ public class Player : MonoBehaviour
 		var onGround = IsOnGround();
 		
 		if (jumpMovement && onGround)
-			rbPlayer.velocity= new Vector2(0, 9);
+			rbPlayer.velocity= new Vector2(0, velocity);
 		
 
     }

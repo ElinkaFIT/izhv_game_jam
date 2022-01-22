@@ -22,8 +22,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Enemy position: " + transform.position);
-        Debug.Log("Player position: " + player.position);
+        rbEnemy.gravityScale = 10.0f;
+        
+        //Debug.Log("Enemy position: " + transform.position);
+        //Debug.Log("Player position: " + player.position);
+       // Debug.Log("Player position: " + player.position.y);
         
         float distToPlayer = Vector2.Distance(transform.position, player.position);
 
@@ -40,14 +43,18 @@ public class Enemy : MonoBehaviour
 
     void ChasePlayerMode()
     {
-        if (transform.position.x < player.position.x)
-        {   // player is to the right
-            rbEnemy.velocity = new Vector2(speed, 0);
+        if (player.position.y < transform.position.y + 1 && player.position.y > transform.position.y - 1)
+        {
+             if (transform.position.x < player.position.x)
+            {   // player is to the right
+                rbEnemy.velocity = new Vector2(speed, 0);
+            }
+            else if (transform.position.x > player.position.x)
+            {   // player is to the left
+                rbEnemy.velocity = new Vector2(-speed, 0);
+            }
         }
-        else if (transform.position.x > player.position.x)
-        {   // player is to the left
-            rbEnemy.velocity = new Vector2(-speed, 0);
-        }
+       
         
     }
 

@@ -42,26 +42,44 @@ public class Player : MonoBehaviour
         {
 	        anim.SetBool("IsRunning", true);
         }
-
+        
         rbPlayer.gravityScale = gravity;
+        bool isClimb = false;
 		if (ClimbingAllowed)
 		{
+			anim.SetBool("IsOnLadder", true);
+			isClimb = true;
 			dirY = Input.GetAxisRaw("Vertical") * speed;
+			if (dirY == 0)
+			{
+				anim.SetBool("IsClimbing", false);
+			}
+			else
+			{
+				anim.SetBool("IsClimbing", true);
+			}
 		}
-		
+		else
+		{
+			anim.SetBool("IsOnLadder", false);
+			anim.SetBool("IsClimbing", false);
+		}
 		
 		
 		var jumpMovement = Input.GetKeyDown(KeyCode.Space);
 		var onGround = IsOnGround();
-
-		if (onGround)
+		
+		if (onGround || isClimb)
 		{
+			anim.SetBool("IsFalling", false);
 			anim.SetBool("IsJumping", false);
 		}
 		else
 		{
 			anim.SetBool("IsJumping", true);
+			anim.SetBool("IsFalling", true);
 		}
+
 		
 		if (jumpMovement && onGround)
 			rbPlayer.velocity= new Vector2(0, velocity);

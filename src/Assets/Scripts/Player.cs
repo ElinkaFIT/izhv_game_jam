@@ -53,6 +53,15 @@ public class Player : MonoBehaviour
 		
 		var jumpMovement = Input.GetKeyDown(KeyCode.Space);
 		var onGround = IsOnGround();
+
+		if (onGround)
+		{
+			anim.SetBool("IsJumping", false);
+		}
+		else
+		{
+			anim.SetBool("IsJumping", true);
+		}
 		
 		if (jumpMovement && onGround)
 			rbPlayer.velocity= new Vector2(0, velocity);

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public Transform player;
     public float agroRange;
-    public float enemySpeed = 3;
+    public float enemySpeed = 5;
     private float edgeCheckDistance = 0.00001f;
     private Rigidbody2D rbEnemy;
     private CapsuleCollider2D bcEnemy;

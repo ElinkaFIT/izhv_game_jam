@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public float agroRange;
-    public static int numOfFloors = 3; // update with floors
+    private static int numOfFloors = 19; // update with floors
     public Transform[] floorSpawnPoints = new Transform[numOfFloors];
     public GameObject[] enemyObjects;
     private bool[] floorHasEnemy = Enumerable.Repeat<bool>(false, numOfFloors).ToArray();

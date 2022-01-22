@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform player;
+//public Transform player;
+    private Transform player;
     public float agroRange;
-    public float enemySpeed = 5;
+    public float enemySpeed = 4;
     private float edgeCheckDistance = 0.00001f;
     private Rigidbody2D rbEnemy;
     private CapsuleCollider2D bcEnemy;
@@ -18,6 +19,8 @@ public class Enemy : MonoBehaviour
     {
         rbEnemy = GetComponent<Rigidbody2D>();
         bcEnemy = GetComponent<CapsuleCollider2D>();
+        player = GameObject.Find("Player").transform;
+        
     }
 
     // Update is called once per frame
@@ -25,35 +28,23 @@ public class Enemy : MonoBehaviour
     {
         rbEnemy.gravityScale = 10.0f;
         
-        //Debug.Log("Enemy position: " + transform.position);
-        //Debug.Log("Player position: " + player.position);
-       // Debug.Log("Player position: " + player.position.y);
-        
+        // chasing player
         float distToPlayer = Vector2.Distance(transform.position, player.position);
-
         bool chasingAllowed = (distToPlayer < agroRange && player.position.y < transform.position.y + 2 &&
                                player.position.y > transform.position.y - 1);
        if (chasingAllowed )
-        {
-            ChasePlayerMode();
-        }
+        { ChasePlayerMode(); }
         else
-        {
-            LesuireMode();
-        }
+        { LesuireMode(); }
 
     }
 
     void ChasePlayerMode()
     {
         if (transform.position.x < player.position.x)
-            {   // player is to the right
-                direction = 1.0f;
-            }
+            { direction = 1.0f; }   // player is to the right
         else if (transform.position.x > player.position.x)
-            {   // player is to the left
-                direction = -1.0f;
-            }
+            { direction = -1.0f; }  // player is to the left
         transform.localScale = new Vector2(direction,1);
         rbEnemy.velocity = new Vector2(direction * enemySpeed*2, 0);
 
@@ -61,10 +52,8 @@ public class Enemy : MonoBehaviour
 
     void LesuireMode()
     {
-        if (IsAtEdge())
-        {
-            direction *= -1;
-        }
+        if ( IsAtEdge() )
+        { direction *= -1; } //change direction at the edge
         transform.localScale = new Vector2(direction,1);
         rbEnemy.velocity = new Vector2(direction * enemySpeed, 0);
 
@@ -72,15 +61,14 @@ public class Enemy : MonoBehaviour
     
     bool IsAtEdge()
     {
-	    // Cast our current BoxCollider in the current gravity direction.
         var hitLeft = Physics2D.BoxCast(
             bcEnemy.bounds.center, bcEnemy.bounds.size, 
             0.0f, new Vector2(-1,0), edgeCheckDistance, 
-            edgeLayerMask);
+            edgeLayerMask); //touches edge from left
         var hitRight = Physics2D.BoxCast(
             bcEnemy.bounds.center, bcEnemy.bounds.size, 
             0.0f, new Vector2(1,0), edgeCheckDistance, 
-            edgeLayerMask);
+            edgeLayerMask); //touches edge from right
 
         Debug.Log("vector: "+ Physics2D.gravity.normalized);
         return (hitLeft.collider != null || hitRight.collider != null);

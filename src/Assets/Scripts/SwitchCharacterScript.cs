@@ -6,6 +6,21 @@ public class SwitchCharacterScript : MonoBehaviour
     int _activeAvatar = 1;
     public bool manualSwitch = false;
     
+     
+    //switches for player animations
+    public LayerMask kidSwitchLayerMask;
+    public LayerMask teenSwitchLayerMask;
+    public LayerMask workerSwitchLayerMask;
+    public LayerMask oldSwitchLayerMask;
+    private bool kidSwitched = false;
+    private bool teenSwitched = false;
+    private bool workerSwitched = false;
+    private bool oldSwitched = false;
+    
+    public Rigidbody2D rbPlayer;
+    public CapsuleCollider2D bcPlayer;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,12 +29,10 @@ public class SwitchCharacterScript : MonoBehaviour
         avatar3.gameObject.SetActive(false);
         avatar4.gameObject.SetActive(false);
         avatar5.gameObject.SetActive(false);
-        if (!manualSwitch)
-        {
-            InvokeRepeating(nameof(ChangeAvatar), 4.0f, 4.0f);
-        }
+        
+        //if (!manualSwitch) { InvokeRepeating(nameof(ChangeAvatar), 4.0f, 4.0f); }
     }
-    
+    /*
     // change after time
     void ChangeAvatar()
     {
@@ -52,6 +65,7 @@ public class SwitchCharacterScript : MonoBehaviour
 
         }
     }
+    */
 
 
 
@@ -91,6 +105,90 @@ public class SwitchCharacterScript : MonoBehaviour
 
             }
         }
+
+
+
+        if (InKidPhase() && !kidSwitched)
+        {
+            avatar1.gameObject.SetActive(false);
+            avatar2.gameObject.SetActive(true);
+            kidSwitched = true;
+        }
+        else if (InTeenPhase() && !teenSwitched)
+        {
+            avatar2.gameObject.SetActive(false);
+            avatar3.gameObject.SetActive(true);
+            teenSwitched = true;
+        }
+        else if (InWorkerPhase() && !workerSwitched)
+        {
+            avatar3.gameObject.SetActive(false); 
+            avatar4.gameObject.SetActive(true);
+            workerSwitched = true;
+        }
+        else if (InOldPhase() && !oldSwitched)
+        {
+            avatar4.gameObject.SetActive(false);
+            avatar5.gameObject.SetActive(true);
+            oldSwitched = true;
+        }
+        
+        
         
     }
+    
+    
+    
+    
+    bool InKidPhase()
+    {
+        // Cast our current BoxCollider in the current gravity direction.
+        var hitInfo = Physics2D.BoxCast(
+            bcPlayer.bounds.center, bcPlayer.bounds.size, 
+            0.0f, new Vector2(0,1), 0, 
+            kidSwitchLayerMask);
+
+        return hitInfo.collider != null;
+    }
+    bool InTeenPhase()
+    {
+        // Cast our current BoxCollider in the current gravity direction.
+        var hitInfo = Physics2D.BoxCast(
+            bcPlayer.bounds.center, bcPlayer.bounds.size, 
+            0.0f, new Vector2(0,1), 0, 
+            teenSwitchLayerMask);
+
+        return hitInfo.collider != null;
+    }
+    bool InWorkerPhase()
+    {
+        // Cast our current BoxCollider in the current gravity direction.
+        var hitInfo = Physics2D.BoxCast(
+            bcPlayer.bounds.center, bcPlayer.bounds.size, 
+            0.0f, new Vector2(0,1), 0, 
+            workerSwitchLayerMask);
+
+        return hitInfo.collider != null;
+    }
+    bool InOldPhase()
+    {
+        // Cast our current BoxCollider in the current gravity direction.
+        var hitInfo = Physics2D.BoxCast(
+            bcPlayer.bounds.center, bcPlayer.bounds.size, 
+            0.0f, new Vector2(0,1), 0, 
+            oldSwitchLayerMask);
+
+        return hitInfo.collider != null;
+    }
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

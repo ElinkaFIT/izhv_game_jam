@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public float agroRange;
     private static int numOfFloors = 19; // update with floors
     public Transform[] floorSpawnPoints = new Transform[numOfFloors];
-    public GameObject[] enemyObjects;
+    public GameObject[] enemyObjects = new GameObject[5];
     private bool[] floorHasEnemy = Enumerable.Repeat<bool>(false, numOfFloors).ToArray();
     public Transform player;
 
@@ -22,14 +22,21 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //float distToPlayer = Vector2.Distance(transform.position, player.position);
-        //bool chasingAllowed = (distToPlayer < agroRange && player.position.y < transform.position.y + 2 && player.position.y > transform.position.y - 1);
+        int enemyID = 0;
         for (int i = 0; i < numOfFloors; i++)
         {
+            switch (i)
+            {
+                case <3: enemyID = 0; break;
+                case <6: enemyID = 1; break;
+                case <9: enemyID = 2; break;
+                case <14: enemyID = 3; break;
+                case <19: enemyID = 4; break;
+            }
             float distToPlayer = Vector2.Distance(floorSpawnPoints[i].position, player.position);
             if (distToPlayer < agroRange && !floorHasEnemy[i])
             {
-                Instantiate(enemyObjects[0], floorSpawnPoints[i].position, transform.rotation);
+                Instantiate(enemyObjects[enemyID], floorSpawnPoints[i].position, transform.rotation);
                 floorHasEnemy[i] = true;
             }
         }

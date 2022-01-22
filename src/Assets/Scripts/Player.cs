@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	private float dirX, dirY;
-	
 	public float speed = 10.0f;
 	public float velocity = 20.0f;
 	public float gravity = 6.0f;
@@ -13,12 +12,15 @@ public class Player : MonoBehaviour
     private CapsuleCollider2D bcPlayer;
     public float groundCheckDistance = 0.01f;
     public LayerMask groundLayerMask;
-    
+
+    // animations
     private Animator anim;
     private bool mHeadingRight = true;
     
 	public bool ClimbingAllowed{ get; set; }
 
+	
+	
     // Start is called before the first frame update
     private void Start()
     {
@@ -27,6 +29,8 @@ public class Player : MonoBehaviour
 	    bcPlayer = GetComponent<CapsuleCollider2D>();
     }
 
+    
+    
     // Update is called once per frame
     private void Update()
     {
@@ -87,21 +91,11 @@ public class Player : MonoBehaviour
     }
     
     
-     bool IsOnGround()
-    {
-	    // Cast our current BoxCollider in the current gravity direction.
-        var hitInfo = Physics2D.BoxCast(
-            bcPlayer.bounds.center, bcPlayer.bounds.size, 
-            0.0f, Physics2D.gravity.normalized, groundCheckDistance, 
-            groundLayerMask);
-
-        return hitInfo.collider != null;
-    }
-    
 
  	private void FixedUpdate()
     {
-		if (ClimbingAllowed)
+	    
+	    if (ClimbingAllowed)
 		{
 			rbPlayer.isKinematic = true;
 			rbPlayer.velocity = new Vector2(dirX,dirY);
@@ -130,6 +124,17 @@ public class Player : MonoBehaviour
     }
 
 
+    
+     bool IsOnGround()
+    {
+	    // Cast our current BoxCollider in the current gravity direction.
+        var hitInfo = Physics2D.BoxCast(
+            bcPlayer.bounds.center, bcPlayer.bounds.size, 
+            0.0f, Physics2D.gravity.normalized, groundCheckDistance, 
+            groundLayerMask);
 
+        return hitInfo.collider != null;
+    }
+   
 
 }

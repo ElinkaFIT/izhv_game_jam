@@ -84,9 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1307b9f9d348b97c0b89e24e41766c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   agroRange: 20
-  enemySpeed: 5
+  enemySpeed: 2
   edgeLayerMask:
     serializedVersion: 2
     m_Bits: 64

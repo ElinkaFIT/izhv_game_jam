@@ -7,7 +7,8 @@ public class Menu : MonoBehaviour
 {
     public static bool GameIsOn = false;
     public GameObject StartMenu;
-
+    
+    public Transform player;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,7 @@ public class Menu : MonoBehaviour
         StartMenu.SetActive(false);
         Time.timeScale = 1f;
         GameIsOn = true;
+        player.position = new Vector3(0,-78,0);
     }
     public void ResumeGame()
     {

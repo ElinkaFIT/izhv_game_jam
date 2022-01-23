@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         int enemyID = 0;
-        for (int i = 1; i < numOfFloors; i++)
+        for (int i = 1; i < numOfFloors-1; i++)
         {
             switch (i)
             {

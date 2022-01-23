@@ -211,6 +211,7 @@ public class Player : MonoBehaviour
 			RIPpanel.SetActive(false);
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 			Time.timeScale = 1f;
+			transform.position = new Vector3(0,-78,0);
 		}
 
 }

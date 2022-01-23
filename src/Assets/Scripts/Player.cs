@@ -18,9 +18,13 @@ public class Player : MonoBehaviour
     private bool mHeadingRight = true;
     
 	public bool ClimbingAllowed{ get; set; }
-	private bool isFalling = false;
-	private static float posPoint;
 	
+	//falling 
+	private bool isFalling = false;
+	private bool allowed = true;
+	private static float posPoint;
+	private int random = 0;
+	private int max = 1;
 	
     // Start is called before the first frame update
     private void Start()
@@ -92,29 +96,35 @@ public class Player : MonoBehaviour
 		
 		if (isFalling)
 		{
-			int limit;
 			switch (posPoint)
 			{
-				case < (-70): limit = 1; break;
-				case < (-60): limit = 2; break;
-				case < (-50): limit = 3; break;
-				case < (-40): limit = 5; break;
-				case < (-30): limit = 6; break;
-				case < (-20): limit = 7; break;
-				default: limit = 8; break;
+				case < (-70): max = 1; break;
+				case < (-60): max = 2; break;
+				case < (-50): max = 3; break;
+				case < (-40): max = 5; break;
+				case < (-30): max = 6; break;
+				case < (-20): max = 7; break;
+				default: max = 8; break;
 			}
-		int[] array = new int[]{4, 11, 18, 25, 32, 39, 46, 53};	//falls max 8 floors
-		int random = Random.Range(0, limit);
-		int diff = array[random];
-		Debug.Log("random: " + random + "...diff: " + diff);
-		
-		//float diff = Random.Range(0, (-75 - posPoint));
-		if (transform.position.y < (posPoint - diff))
-		{
-			//Debug.Log("pos: "+ transform.position.y + " ..new: "+ (posPoint - diff)+ "trigger: "+bcPlayer.isTrigger);
-		     bcPlayer.isTrigger = false;
-		     isFalling = false;
-	     }
+			
+			
+			int[] array = new int[]{4, 11, 18, 25, 32, 39, 46, 53};	//falls max 8 floors
+			if (allowed)
+			{
+				random = Random.Range(0, max);
+				allowed = false;
+			}
+			int diff = array[random];
+			Debug.Log("max: " + max + " ..random: " + random + "...diff: " + diff);
+			
+			//float diff = Random.Range(0, (-75 - posPoint));
+			if (transform.position.y < (posPoint - diff))
+			{
+				//Debug.Log("pos: "+ transform.position.y + " ..new: "+ (posPoint - diff)+ "trigger: "+bcPlayer.isTrigger);
+			     bcPlayer.isTrigger = false;
+			     isFalling = false;
+			     allowed = true;
+			}
 		}
 		
 		

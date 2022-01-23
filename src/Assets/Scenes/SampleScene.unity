@@ -4910,6 +4910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OldRIP
       objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: ea99e341f1f52a44c8443763ab3043fe, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: ea99e341f1f52a44c8443763ab3043fe, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4961,6 +4965,10 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: ea99e341f1f52a44c8443763ab3043fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7178615899162201487, guid: ea99e341f1f52a44c8443763ab3043fe, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -3601147129428955498, guid: ea99e341f1f52a44c8443763ab3043fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17352,6 +17360,10 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  RIPLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  RIPpanel: {fileID: 0}
 --- !u!95 &845824244
 Animator:
   serializedVersion: 4

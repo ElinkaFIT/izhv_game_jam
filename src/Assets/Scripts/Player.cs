@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class Player : MonoBehaviour
     private CapsuleCollider2D bcPlayer;
     public float groundCheckDistance = 0.01f;
     public LayerMask groundLayerMask;
-
+    public LayerMask RIPLayerMask;
+    public GameObject RIPpanel;
+    
     // animations
     private Animator anim;
     private bool mHeadingRight = true;
@@ -158,6 +161,12 @@ public class Player : MonoBehaviour
 			transform.localRotation *= Quaternion.Euler(0, 180, 0);
 			mHeadingRight = false;
 		}
+
+		if (IsRIP())
+		{
+			RIPpanel.SetActive(true);
+			Time.timeScale = 0f;
+		}
 		
 
     }
@@ -174,6 +183,16 @@ public class Player : MonoBehaviour
 
         return hitInfo.collider != null;
     }
+     
+      bool IsRIP()
+    {
+	    // Cast our current BoxCollider in the current gravity direction.
+        var hitInfo = Physics2D.BoxCast(
+            bcPlayer.bounds.center, bcPlayer.bounds.size, 
+            0.0f,  new Vector2(1,0), 0, RIPLayerMask);
+
+        return hitInfo.collider != null;
+    }
 
      private void OnCollisionEnter2D(Collision2D other)
      {
@@ -187,6 +206,11 @@ public class Player : MonoBehaviour
 	     
      }
      
-   
+   public void RIPswitchOFF()
+		{
+			RIPpanel.SetActive(false);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			Time.timeScale = 1f;
+		}
 
 }

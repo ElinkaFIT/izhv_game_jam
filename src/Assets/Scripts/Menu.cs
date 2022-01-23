@@ -20,8 +20,15 @@ public class Menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("pause?");
             PauseGame();
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && (GameIsOn == false) )
+        {
+            ResumeGame();
+        }
+        if (Input.GetKeyDown(KeyCode.R) )
+        {
+            StartGame();
         }
 
         if (GameIsOn)

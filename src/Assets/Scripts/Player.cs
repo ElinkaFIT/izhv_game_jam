@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 	private int random = 0;
 	private int max = 1;
 	
+	
     // Start is called before the first frame update
     private void Start()
     {
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
 	        anim.SetBool("IsRunning", true);
         }
         
+        //climbing
         rbPlayer.gravityScale = gravity;
         bool isClimb = false;
 		if (ClimbingAllowed)
@@ -73,7 +75,7 @@ public class Player : MonoBehaviour
 			anim.SetBool("IsClimbing", false);
 		}
 		
-		
+		//jumping
 		var jumpMovement = Input.GetKeyDown(KeyCode.Space);
 		var onGround = IsOnGround();
 		
@@ -87,13 +89,12 @@ public class Player : MonoBehaviour
 			anim.SetBool("IsJumping", true);
 			anim.SetBool("IsFalling", true);
 		}
-
 		
 		if (jumpMovement && onGround)
 			rbPlayer.velocity= new Vector2(0, velocity);
 
 
-		
+		//falling
 		if (isFalling)
 		{
 			switch (posPoint)
@@ -107,7 +108,6 @@ public class Player : MonoBehaviour
 				default: max = 8; break;
 			}
 			
-			
 			int[] array = new int[]{4, 11, 18, 25, 32, 39, 46, 53};	//falls max 8 floors
 			if (allowed)
 			{
@@ -115,12 +115,9 @@ public class Player : MonoBehaviour
 				allowed = false;
 			}
 			int diff = array[random];
-			Debug.Log("max: " + max + " ..random: " + random + "...diff: " + diff);
 			
-			//float diff = Random.Range(0, (-75 - posPoint));
 			if (transform.position.y < (posPoint - diff))
 			{
-				//Debug.Log("pos: "+ transform.position.y + " ..new: "+ (posPoint - diff)+ "trigger: "+bcPlayer.isTrigger);
 			     bcPlayer.isTrigger = false;
 			     isFalling = false;
 			     allowed = true;

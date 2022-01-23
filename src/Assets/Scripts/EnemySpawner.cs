@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,10 +12,43 @@ public class EnemySpawner : MonoBehaviour
     private bool[] floorHasEnemy = Enumerable.Repeat<bool>(false, numOfFloors).ToArray();
     public Transform player;
 
+	//coins
+	public GameObject coinObject;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+		// coin spawner
+		float length;
+		float step;
+		int random;
+		Vector3 position;
+		for (int i = 0; i < numOfFloors; i++)
+        {
+            length = (numOfFloors - i) * 10;
+			step = (0 - (length/2)) + 2;
+			while (step < (length/2 - 2))
+			{
+				int[] array = new int[]{0, 1, 0, 2, 0, 0};
+				random = Random.Range(0, 6);
+				int choice = array[random];
+
+				 switch(choice)
+            	{
+               	 	case 1:
+						position = new Vector3(step, floorSpawnPoints[i].position.y + 0.0f, 0);
+						Instantiate(coinObject, position, transform.rotation);
+						break;
+                	case 2:
+						position = new Vector3(step,floorSpawnPoints[i].position.y + 3.0f, 0);
+						Instantiate(coinObject, position, transform.rotation);
+						break;
+					default: break;
+            	}
+				step+=4;
+			}			
+		} 
+
     }
 
     // Update is called once per frame
@@ -41,4 +73,5 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
+
 }

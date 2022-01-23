@@ -70,7 +70,6 @@ public class Enemy : MonoBehaviour
             0.0f, new Vector2(1,0), edgeCheckDistance, 
             edgeLayerMask); //touches edge from right
 
-        Debug.Log("vector: "+ Physics2D.gravity.normalized);
         return (hitLeft.collider != null || hitRight.collider != null);
     }
     

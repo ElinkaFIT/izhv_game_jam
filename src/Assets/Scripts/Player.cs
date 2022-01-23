@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     private bool mHeadingRight = true;
     
 	public bool ClimbingAllowed{ get; set; }
-
+	private bool isFalling = false;
+	private static float posPoint;
 	
 	
     // Start is called before the first frame update
@@ -86,8 +87,38 @@ public class Player : MonoBehaviour
 		
 		if (jumpMovement && onGround)
 			rbPlayer.velocity= new Vector2(0, velocity);
-		
 
+
+		
+		if (isFalling)
+		{
+			int limit;
+			switch (posPoint)
+			{
+				case < (-70): limit = 1; break;
+				case < (-60): limit = 2; break;
+				case < (-50): limit = 3; break;
+				case < (-40): limit = 5; break;
+				case < (-30): limit = 6; break;
+				case < (-20): limit = 7; break;
+				default: limit = 8; break;
+			}
+		int[] array = new int[]{4, 11, 18, 25, 32, 39, 46, 53};	//falls max 8 floors
+		int random = Random.Range(0, limit);
+		int diff = array[random];
+		Debug.Log("random: " + random + "...diff: " + diff);
+		
+		//float diff = Random.Range(0, (-75 - posPoint));
+		if (transform.position.y < (posPoint - diff))
+		{
+			//Debug.Log("pos: "+ transform.position.y + " ..new: "+ (posPoint - diff)+ "trigger: "+bcPlayer.isTrigger);
+		     bcPlayer.isTrigger = false;
+		     isFalling = false;
+	     }
+		}
+		
+		
+		
     }
     
     
@@ -135,6 +166,19 @@ public class Player : MonoBehaviour
 
         return hitInfo.collider != null;
     }
+
+     private void OnCollisionEnter2D(Collision2D other)
+     {
+	     if (other.gameObject.tag == "Enemy")
+	     {
+		     bcPlayer.isTrigger = true;
+		     isFalling = true;
+		     posPoint = other.gameObject.transform.position.y;
+
+	     }
+	     
+     }
+     
    
 
 }

@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         int enemyID = 0;
-        for (int i = 0; i < numOfFloors; i++)
+        for (int i = 1; i < numOfFloors; i++)
         {
             switch (i)
             {
@@ -40,12 +40,5 @@ public class EnemySpawner : MonoBehaviour
                 floorHasEnemy[i] = true;
             }
         }
-
-        /*
-            if (Input.GetKeyDown(KeyCode.E)) // todo
-        {
-            Instantiate(enemyObjects[0], floorSpawnPoints[0].position, transform.rotation);
-        }
-        */
     }
 }

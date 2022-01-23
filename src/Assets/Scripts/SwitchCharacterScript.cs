@@ -72,7 +72,8 @@ public class SwitchCharacterScript : MonoBehaviour
     // manual switching
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && manualSwitch)
+/*
+       if (Input.GetKeyDown(KeyCode.LeftControl) && manualSwitch)
         {
             print(_activeAvatar);
             switch (_activeAvatar)
@@ -105,7 +106,7 @@ public class SwitchCharacterScript : MonoBehaviour
 
             }
         }
-
+*/
 
 
         if (InKidPhase() && !kidSwitched)

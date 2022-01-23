@@ -27,7 +27,8 @@ public class Player : MonoBehaviour
 	private int max = 1;
 	
 	
-    // Start is called before the first frame update
+	
+	
     private void Start()
     {
 	    anim = GetComponent<Animator>();
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour
 
     
     
-    // Update is called once per frame
+    
     private void Update()
     {
 		dirX = Input.GetAxisRaw("Horizontal") * speed;

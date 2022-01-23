@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private float direction = 1.0f;
     public GameObject avatar1, avatar2;
     
-    // Start is called before the first frame update
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         rbEnemy.gravityScale = 10.0f;

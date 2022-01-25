@@ -18,12 +18,12 @@ public class Menu : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+    { 
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && (GameIsOn == true))
         {
             PauseGame();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && (GameIsOn == false) )
+        else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape)) && (GameIsOn == false) )
         {
             ResumeGame();
         }
@@ -51,6 +51,7 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsOn = true;
         player.position = new Vector3(0,-78,0);
+        CoinManager.coinAmount = 0;
     }
     public void ResumeGame()
     {
